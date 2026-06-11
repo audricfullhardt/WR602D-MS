@@ -1,0 +1,9 @@
+nelmio_cors:
+    defaults:
+        origin_regex: true
+        allow_origin: ['%env(CORS_ALLOW_ORIGIN)%', '%env(CORS_BACK_URL)%']
+        allow_methods: ['POST', 'OPTIONS']
+        allow_headers: ['Content-Type', 'X-API-KEY']
+        max_age: 3600
+    paths:
+        '^/mail': null

@@ -1,0 +1,7 @@
+services:
+  mailhog:
+    image: axllent/mailpit
+    container_name: minigolf_mailer_mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"

@@ -3,29 +3,30 @@ security:
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
 
-    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+    # Single, password-less API client. The API key is what authenticates the
+    # request; this user only carries the ROLE_API authorization.
     providers:
-        users_in_memory: { memory: null }
+        users_in_memory:
+            memory:
+                users:
+                    api_user: { password: '', roles: ['ROLE_API'] }
 
     firewalls:
         dev:
             # Ensure dev tools and static assets are always allowed
             pattern: ^/(_profiler|_wdt|assets|build)/
             security: false
+
         main:
             lazy: true
+            stateless: true
             provider: users_in_memory
+            custom_authenticators:
+                - App\Security\ApiAuthenticator
 
-            # Activate different ways to authenticate:
-            # https://symfony.com/doc/current/security.html#the-firewall
-
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
-
-    # Note: Only the *first* matching rule is applied
+    # Every endpoint of the micro-service requires a valid API key (ROLE_API).
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/, roles: ROLE_API }
 
 when@test:
     security:
