@@ -28,6 +28,16 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
+      - name: Create .env
+        run: |
+          echo "APP_ENV=test" > .env
+          echo "APP_SECRET=ci-secret" >> .env
+          echo "MAILER_DSN=null://null" >> .env
+          echo "API_KEY_HEADER=X-API-KEY" >> .env
+          echo "API_KEY_VALUE=test-secret" >> .env
+          echo "MAILER_NO_REPLY_EMAIL=noreply@test.fr" >> .env
+          echo "MAILER_FROM_NAME=Test" >> .env
+
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
 
