@@ -59,6 +59,6 @@ jobs:
           script: |
             cd /var/www/minigolf/mailer
             git pull origin main
-            composer install --no-dev --optimize-autoloader --no-interaction
-            APP_ENV=prod php bin/console cache:clear
-            docker compose restart mailer
+            cd /var/www/minigolf
+            docker compose build mailer
+            docker compose up -d --no-deps mailer
