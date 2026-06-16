@@ -38,6 +38,7 @@ jobs:
           echo "MAILER_NO_REPLY_EMAIL=noreply@test.fr" >> .env
           echo "MAILER_FROM_NAME=Test" >> .env
           echo "DEFAULT_URI=http://localhost" >> .env
+          echo "CORS_ALLOW_ORIGIN='^https?://localhost'" >> .env
 
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
