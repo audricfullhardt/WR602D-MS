@@ -37,6 +37,7 @@ jobs:
           echo "API_KEY_VALUE=test-secret" >> .env
           echo "MAILER_NO_REPLY_EMAIL=noreply@test.fr" >> .env
           echo "MAILER_FROM_NAME=Test" >> .env
+          echo "DEFAULT_URI=http://localhost" >> .env
 
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
